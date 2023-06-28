@@ -15,6 +15,7 @@ import { ElementDialogComponent } from './shared/element-dialog/element-dialog.c
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -37,6 +38,7 @@ import { FormsModule } from '@angular/forms'
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
