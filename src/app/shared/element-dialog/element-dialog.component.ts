@@ -9,11 +9,21 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ElementDialogComponent {
   element!: PeriodicElement;
+  isChange!: boolean;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: PeriodicElement,
     public dialogRef: MatDialogRef<ElementDialogComponent>,
   ) {}
+
+  ngOnInit(): void {
+    if (this.data.id != null){
+      this.isChange = true;
+    } else {
+      this.isChange = false;
+    }
+  }
 
   onCancel(): void {
     this.dialogRef.close();

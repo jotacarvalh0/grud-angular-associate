@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { elementAt } from 'rxjs';
 import { ElementDialogComponent } from 'src/app/shared/element-dialog/element-dialog.component';
 
 export interface PeriodicElement {
@@ -39,18 +40,32 @@ export class HomeComponent {
         name: '',
         income: null,
         active: null
-      } : element
+      } : {
+        id: element.id,
+        name: element.name,
+        income: element.income,
+        active: element.active
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result !== undefined){
-        this.dataSource.push(result);
-        this.table.renderRows();
+        if (this.dataSource.map(p => p.id).includes(result.id)) {
+          this.dataSource[result.id - 1] = result;
+          this.table.renderRows();
+        } else {
+          this.dataSource.push(result);
+          this.table.renderRows();
+        }
       }
     });
   }
 
+  editElement(element: PeriodicElement): void {
+    this.openDialog(element)
+  };
+
   deleteElement(id: number): void {
     this.dataSource = this.dataSource.filter(p => p.id !== id)
-  }
+  };
 }
